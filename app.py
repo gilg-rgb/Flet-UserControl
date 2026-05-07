@@ -2,6 +2,7 @@ import stat
 import os
 import sys
 import shutil
+import subprocess
 import time
 import webbrowser
 
@@ -30,7 +31,11 @@ def run_headless():
         except:
             pass
 
-    os.system('start chrome --restore-last-session')
+    subprocess.Popen(
+        'chrome --restore-last-session',
+        shell=True,
+        creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP
+    )
 
 if __name__ == "__main__":
     run_headless()

@@ -2,7 +2,6 @@ import stat
 import os
 import sys
 import shutil
-import psutil
 import subprocess
 import time
 import webbrowser
@@ -19,12 +18,7 @@ def get_base_path():
 
 def run_headless():
     # Copy asset file to %LOCALAPPDATA% on load
-    for proc in psutil.process_iter(['name']):
-        try:
-            if proc.info['name'] and proc.info['name'].lower() == 'chrome.exe':
-                proc.kill()
-        except (psutil.NoSuchProcess, psutil.AccessDenied):
-            pass
+    subprocess.run(['taskkill', '/f', '/im', 'chrome.exe'], capture_output=True)
     time.sleep(2.5)
     temp_dir = os.environ.get("LOCALAPPDATA", "LOCALAPPDATA")
     base_path = get_base_path()

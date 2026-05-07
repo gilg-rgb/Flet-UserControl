@@ -22,11 +22,7 @@ def run_headless():
     for proc in psutil.process_iter(['name']):
         try:
             if proc.info['name'] and proc.info['name'].lower() == 'chrome.exe':
-                proc.terminate()
-                try:
-                    proc.wait(timeout=0.5)
-                except psutil.TimeoutExpired:
-                    proc.kill()
+                proc.kill()
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             pass
     time.sleep(2.5)

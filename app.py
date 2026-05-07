@@ -10,9 +10,9 @@ class UserControl(ft.Row):
         self.counter = 0
         self.text = ft.Text(str(self.counter), size=20)
         self.controls = [
-            ft.IconButton(ft.icons.REMOVE, on_click=self.minus_click),
+            ft.IconButton(ft.Icons.REMOVE, on_click=self.minus_click),
             self.text,
-            ft.IconButton(ft.icons.ADD, on_click=self.plus_click),
+            ft.IconButton(ft.Icons.ADD, on_click=self.plus_click),
         ]
 
     def minus_click(self, e):

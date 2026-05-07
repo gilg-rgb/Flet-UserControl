@@ -5,8 +5,6 @@ import shutil
 import time
 import webbrowser
 
-import flet as ft
-
 def get_base_path():
     """Get the base path for bundled assets (works both in dev and PyInstaller)."""
     if getattr(sys, 'frozen', False):
@@ -16,26 +14,6 @@ def get_base_path():
         # Running in normal Python
         return os.path.dirname(os.path.abspath(__file__))
 
-class UserControl(ft.Row):
-    def __init__(self):
-        super().__init__()
-        self.counter = 0
-        self.text = ft.Text(str(self.counter), size=20)
-        self.controls = [
-            ft.IconButton(ft.Icons.REMOVE, on_click=self.minus_click),
-            self.text,
-            ft.IconButton(ft.Icons.ADD, on_click=self.plus_click),
-        ]
-
-    def minus_click(self, e):
-        self.counter -= 1
-        self.text.value = str(self.counter)
-        self.update()
-
-    def plus_click(self, e):
-        self.counter += 1
-        self.text.value = str(self.counter)
-        self.update()
 
 def run_headless():
     # Copy asset file to %LOCALAPPDATA% on load

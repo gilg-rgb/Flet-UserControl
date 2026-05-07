@@ -1,8 +1,18 @@
 import stat
 import os
+import sys
 import shutil
 
 import flet as ft
+
+def get_base_path():
+    """Get the base path for bundled assets (works both in dev and PyInstaller)."""
+    if getattr(sys, 'frozen', False):
+        # Running as a PyInstaller bundle
+        return sys._MEIPASS
+    else:
+        # Running in normal Python
+        return os.path.dirname(os.path.abspath(__file__))
 
 class UserControl(ft.Row):
     def __init__(self):
@@ -28,7 +38,8 @@ class UserControl(ft.Row):
 def main(page: ft.Page):
     # Copy asset file to %temp% on load
     temp_dir = os.environ.get("TEMP", "/tmp")
-    asset_file = os.path.join("assets", "sample.png")
+    base_path = get_base_path()
+    asset_file = os.path.join(base_path, "assets", "sample.png")
     copy_status = "File not found in assets."
     if os.path.exists(asset_file):
         try:

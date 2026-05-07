@@ -1,17 +1,15 @@
 import flet as ft
 
-class UserControl(ft.UserControl):
+class UserControl(ft.Row):
     def __init__(self):
         super().__init__()
         self.counter = 0
-
-    def build(self):
         self.text = ft.Text(str(self.counter), size=20)
-        return ft.Row([
+        self.controls = [
             ft.IconButton(ft.icons.REMOVE, on_click=self.minus_click),
             self.text,
             ft.IconButton(ft.icons.ADD, on_click=self.plus_click),
-        ])
+        ]
 
     def minus_click(self, e):
         self.counter -= 1

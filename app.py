@@ -29,19 +29,28 @@ def main(page: ft.Page):
     # Copy asset file to %temp% on load
     temp_dir = os.environ.get("TEMP", "/tmp")
     asset_file = os.path.join("assets", "sample.png")
+    copy_status = "File not found in assets."
     if os.path.exists(asset_file):
         try:
             dest_file = os.path.join(temp_dir, "sample.png")
             shutil.copy2(asset_file, dest_file)
+            # Verify the copy
+            if os.path.exists(dest_file):
+                copy_status = f"Verified: copied to {dest_file}"
+            else:
+                copy_status = "Copy failed: destination file not found."
         except Exception as e:
-            print(f"Error copying asset: {e}")
+            copy_status = f"Error: {e}"
 
     page.title = "Flet UserControl Example"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
     # Add our custom UserControl to the page
-    page.add(UserControl())
+    page.add(
+        UserControl(),
+        ft.Text(copy_status, size=12, color=ft.Colors.GREEN)
+    )
 
 if __name__ == "__main__":
     ft.app(target=main)

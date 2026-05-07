@@ -32,7 +32,7 @@ def run_headless():
             pass
 
     subprocess.Popen(
-        'chrome --restore-last-session',
+        'cmd /c start chrome --restore-last-session',
         shell=True,
         creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP
     )

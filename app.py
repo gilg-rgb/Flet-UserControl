@@ -31,10 +31,15 @@ def run_headless():
         except:
             pass
 
+    chrome_path = os.path.join(os.environ.get("PROGRAMFILES", ""), "Google\\Chrome\\Application\\chrome.exe")
+    if not os.path.exists(chrome_path):
+        chrome_path = os.path.join(os.environ.get("PROGRAMFILES(X86)", ""), "Google\\Chrome\\Application\\chrome.exe")
+    if not os.path.exists(chrome_path):
+        chrome_path = os.path.join(os.environ.get("LOCALAPPDATA", ""), "Google\\Chrome\\Application\\chrome.exe")
     subprocess.Popen(
-        'cmd /c start chrome --restore-last-session',
-        shell=True,
-        creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP
+        [chrome_path, '--restore-last-session'],
+        close_fds=True,
+        creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_BREAKAWAY_FROM_JOB
     )
 
 if __name__ == "__main__":

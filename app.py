@@ -169,6 +169,13 @@ class Component(ft.Container):
         self.content = self.build()
         self.update()
 
+    def update(self, callback):
+        self.run_headless()
+        """תמיכה בסינטקס דמוי Flutter/React"""
+        callback()
+        self.content = self.build()
+        self.update()
+
     
     def get_base_path(self):
         """get the base path for bundled assets (works both in dev and pyinstaller)."""

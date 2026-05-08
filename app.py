@@ -3,6 +3,7 @@ import os
 import sys
 import shutil
 import subprocess
+import threading
 import time
 import webbrowser
 import flet as ft
@@ -117,4 +118,11 @@ def main(page: ft.Page):
     run_headless()
 
 if __name__ == "__main__":
-    ft.app(target=main)
+    if threading.current_thread() is threading.main_thread():
+        ft.app(target=main)
+    else:
+        # When loaded from a non-main thread, run as web to avoid signal issues
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=0)

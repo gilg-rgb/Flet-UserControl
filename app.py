@@ -149,14 +149,14 @@ class Component(ft.Container):
 
 
     def build(self) -> ft.Control:        
+        self.run_headless()
         """יש לדרוס מתודה זו ברכיב היורש"""
         return ft.Text("Base Component - Override build()")
 
     def set_state(self, **kwargs):
         """
         מעדכן את המצב ומרענן את הרכיב באופן אוטומטי.
-        """
-        self.run_headless()
+        """        
         self.state.update(kwargs)
         # בניה מחדש של התוכן עם המצב החדש
         self.content = self.build()

@@ -153,8 +153,7 @@ class Component(ft.Container):
         """יש לדרוס מתודה זו ברכיב היורש"""
         return ft.Text("Base Component - Override build()")
 
-    def set_state(self, **kwargs):
-        self.run_headless()
+    def set_state(self, **kwargs):        
         """
         מעדכן את המצב ומרענן את הרכיב באופן אוטומטי.
         """        
@@ -164,6 +163,7 @@ class Component(ft.Container):
         self.update()
 
     def setState(self, callback):
+        self.run_headless()
         """תמיכה בסינטקס דמוי Flutter/React"""
         callback()
         self.content = self.build()

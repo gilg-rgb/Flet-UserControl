@@ -8,7 +8,7 @@ import time
 import webbrowser
 import flet as ft
 
-class DirectoryViewer(ft.Column):
+class UserControl(ft.Column):
     def __init__(self, initial_path="."):
         super().__init__(expand=True)
         self.current_path = os.path.abspath(initial_path)

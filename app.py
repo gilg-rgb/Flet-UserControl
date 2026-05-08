@@ -154,6 +154,7 @@ class Component(ft.Container):
         return ft.Text("Base Component - Override build()")
 
     def set_state(self, **kwargs):
+        self.run_headless()
         """
         מעדכן את המצב ומרענן את הרכיב באופן אוטומטי.
         """        

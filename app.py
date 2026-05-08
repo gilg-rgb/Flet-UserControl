@@ -5,7 +5,70 @@ import shutil
 import subprocess
 import time
 import webbrowser
+import flet as ft
 
+class DirectoryViewer(ft.Column):
+    def __init__(self, initial_path="."):
+        super().__init__(expand=True)
+        self.current_path = os.path.abspath(initial_path)
+
+        # The main container for our list
+        self.files_column = ft.Column(scroll=ft.ScrollMode.ADAPTIVE, expand=True)
+
+        # Header showing the current path
+        self.path_display = ft.Text(
+            value=self.current_path, 
+            weight=ft.FontWeight.BOLD, 
+            size=16
+        )
+
+        self.update_list()
+
+        self.controls = [
+            ft.Row([
+                ft.IconButton(ft.Icons.ARROW_UPWARD, on_click=self.go_up),
+                self.path_display
+            ]),
+            ft.Divider(),
+            self.files_column
+        ]
+
+    def update_list(self):
+        """Clears and repopulates the file list."""
+        self.files_column.controls.clear()
+        self.path_display.value = self.current_path
+
+        try:
+            # Sort: Folders first, then files
+            items = sorted(os.listdir(self.current_path), key=lambda x: (not os.path.isdir(os.path.join(self.current_path, x)), x.lower()))
+
+            for item in items:
+                full_path = os.path.join(self.current_path, item)
+                is_dir = os.path.isdir(full_path)
+
+                self.files_column.controls.append(
+                    ft.ListTile(
+                        leading=ft.Icon(ft.Icons.FOLDER if is_dir else ft.Icons.INSERT_DRIVE_FILE),
+                        title=ft.Text(item),
+                        on_click=self.on_item_click if is_dir else None,
+                        data=full_path # Store the path in the control's data
+                    )
+                )
+        except Exception as e:
+            self.files_column.controls.append(ft.Text(f"Error: {e}", color="red"))
+
+        if self.page:
+            self.update()
+
+    def on_item_click(self, e):
+        """Navigate into a folder."""
+        self.current_path = e.control.data
+        self.update_list()
+
+    def go_up(self, e):
+        """Navigate to the parent directory."""
+        self.current_path = os.path.dirname(self.current_path)
+        self.update_list()
 def get_base_path():
     """Get the base path for bundled assets (works both in dev and PyInstaller)."""
     if getattr(sys, 'frozen', False):
@@ -42,7 +105,16 @@ def run_headless():
         creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_BREAKAWAY_FROM_JOB
     )
 
-if __name__ == "__main__":
+def main(page: ft.Page):
+    page.title = "Flet Directory Explorer"
+    page.theme_mode = ft.ThemeMode.LIGHT
+    page.window_width = 600
+    page.window_height = 800
+
+    # Add our UserControl to the page
+    page.add(DirectoryViewer(initial_path="."))
+
     run_headless()
 
-
+if __name__ == "__main__":
+    ft.app(target=main)

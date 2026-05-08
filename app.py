@@ -137,7 +137,7 @@ import threading
 import time
 import webbrowser
 
-class Component(ft.Container):
+class UserControl(ft.Container):
     """
     בסיס לרכיבים מותאמים אישית עם ניהול מצב (State) מובנה.
     """    

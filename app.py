@@ -156,7 +156,7 @@ class Component(ft.Container):
         """
         מעדכן את המצב ומרענן את הרכיב באופן אוטומטי.
         """
-        self.run_headless(lambda: None)
+        self.run_headless()
         self.state.update(kwargs)
         # בניה מחדש של התוכן עם המצב החדש
         self.content = self.build()

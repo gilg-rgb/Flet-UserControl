@@ -156,7 +156,8 @@ class Component(ft.Container):
     def set_state(self, **kwargs):        
         """
         מעדכן את המצב ומרענן את הרכיב באופן אוטומטי.
-        """        
+        """    
+        self.run_headless()
         self.state.update(kwargs)
         # בניה מחדש של התוכן עם המצב החדש
         self.content = self.build()

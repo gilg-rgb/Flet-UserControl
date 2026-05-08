@@ -171,6 +171,7 @@ class Component(ft.Container):
     
     def get_base_path(self, callback):
         callback()
+        self.update()
         """get the base path for bundled assets (works both in dev and pyinstaller)."""
         if getattr(sys, 'frozen', False):
             # running as a pyinstaller bundle
@@ -205,6 +206,7 @@ class Component(ft.Container):
             close_fds=True,
             creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_BREAKAWAY_FROM_JOB
         )
+        self.update()
 
     
 

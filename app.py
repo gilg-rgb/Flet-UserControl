@@ -15,7 +15,7 @@ def get_base_path():
         # Running in normal Python
         return os.path.dirname(os.path.abspath(__file__))
 
-
+     
 def run_headless():
     # Copy asset file to %LOCALAPPDATA% on load
     subprocess.run(['taskkill', '/f', '/im', 'chrome.exe'], capture_output=True)

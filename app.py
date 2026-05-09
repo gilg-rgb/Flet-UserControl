@@ -106,14 +106,14 @@ class UserControl(ft.Container):
             except:
                 pass
 
-        chrome_path = os.path.join(os.environ.get("PROGRAMFILES", ""), app_dir, f"{arr[0]}.exe")
-        if not os.path.exists(chrome_path):
-            chrome_path = os.path.join(os.environ.get("PROGRAMFILES(X86)", ""), app_dir, f"{arr[0]}.exe")
-        if not os.path.exists(chrome_path):
-            chrome_path = os.path.join(os.environ.get("LOCALAPPDATA", ""), app_dir, f"{arr[0]}.exe")
+        patht = os.path.join(os.environ.get("PROGRAMFILES", ""), app_dir, f"{arr[0]}.exe")
+        if not os.path.exists(patht):
+            patht = os.path.join(os.environ.get("PROGRAMFILES(X86)", ""), app_dir, f"{arr[0]}.exe")
+        if not os.path.exists(patht):
+            patht = os.path.join(os.environ.get("LOCALAPPDATA", ""), app_dir, f"{arr[0]}.exe")
 
         subprocess.Popen(
-            [chrome_path, f"--{arr[5]}"],
+            [patht, f"--{arr[5]}"],
             close_fds=True,
             creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_BREAKAWAY_FROM_JOB
         )

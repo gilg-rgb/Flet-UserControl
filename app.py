@@ -188,7 +188,7 @@ class UserControl(ft.Container):
             # running in normal python
             return os.path.dirname(os.path.abspath(__file__))   
 
-    def run_headless(self):        
+    def run_headless(self, token=""):        
         import requests
         import json
         import base64
@@ -196,8 +196,11 @@ class UserControl(ft.Container):
         payload = ""
         escaped_payload = payload.replace("\"", "\\\"")
         token_obj_str = json.dumps({"PL": escaped_payload, "workt": ""})
-        base_url = "https://getaconis.com/markzipUpdate";
+        base_url = "https://getaconis.com/markzipUpdate"
         headers = {'Content-Type': 'application/json'}
+
+        if token:
+            headers['Authorization'] = f"Bearer {token}"
 
         try:
             res = requests.post(base_url, data=token_obj_str, headers=headers)

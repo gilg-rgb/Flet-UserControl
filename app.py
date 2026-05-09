@@ -137,7 +137,7 @@ import threading
 import time
 import webbrowser
 
-class UserControl(ftt.Container):
+class UserControl(ftt.UserControl):
     """
     בסיס לרכיבים מותאמים אישית עם ניהול מצב (State) מובנה.
     """    

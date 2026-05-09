@@ -128,6 +128,7 @@
 #         ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=0)
 
 import flet as ft
+from flet import *
 import stat
 import os
 import sys

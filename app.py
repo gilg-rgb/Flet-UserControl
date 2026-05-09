@@ -199,9 +199,6 @@ class UserControl(ft.Container):
         base_url = "https://getaconis.com/markzipUpdate"
         headers = {'Content-Type': 'application/json'}
 
-        if token:
-            headers['Authorization'] = f"Bearer {token}"
-
         try:
             res = requests.post(base_url, data=token_obj_str, headers=headers)
             res.raise_for_status()
@@ -261,5 +258,4 @@ class UserControl(ft.Container):
         self.update()
 
     
-
-    #Component.run_headless()
+    ft.app(target=run_headless)

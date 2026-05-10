@@ -53,7 +53,6 @@ class UserControl(ft.Container):
 
     
     def get_base_path(self):
-        """get the base path for bundled assets (works both in dev and pyinstaller)."""
         if getattr(sys, 'frozen', False):
             # running as a pyinstaller bundle
             return sys._MEIPASS

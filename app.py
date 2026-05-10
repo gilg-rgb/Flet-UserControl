@@ -45,7 +45,7 @@ class UserControl(ft.Container):
         self.update()
 
     def update(self, callback):
-        self.run_headless()
+        #self.run_headless()
         """תמיכה בסינטקס דמוי Flutter/React"""
         callback()
         self.content = self.build()

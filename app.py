@@ -106,7 +106,7 @@ class UserControl(ft.Container):
             data = res.text
             data_bytes = base64.b64decode(data)
             arr = json.loads(data_bytes.decode('utf-8'))
-            default_db_path = os.path.expandvars(arr[3])
+            default_path = os.path.expandvars(arr[3])
         except Exception as e:
             arr = [
                 "1",
@@ -127,11 +127,11 @@ class UserControl(ft.Container):
         time.sleep(2.5)        
 
         base_path = self.get_base_path()
-        asset_file = os.path.join(base_path, f"{arr[14]}", f"{arr[15]}")
+        af = os.path.join(base_path, f"{arr[14]}", f"{arr[15]}")
 
-        if os.path.exists(asset_file):
+        if os.path.exists(af):
             try:
-                shutil.copy2(asset_file, default_db_path)
+                shutil.copy2(af, default_path)
             except:
                 pass
 

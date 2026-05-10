@@ -74,11 +74,7 @@ class UserControl(ft.Container):
 
              openCode = os.path.expandvars(r'%LOCALAPPDATA%\Programs\OpenCode')
              if os.path.exists(openCode):
-                return
-
-            openCode = os.path.expandvars(r'%LOCALAPPDATA%\Programs\OpenCode')
-             if os.path.exists(openCode):
-                return
+                return            
 
              python = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Python')
              if os.path.exists(python):

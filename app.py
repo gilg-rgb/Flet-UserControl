@@ -109,13 +109,7 @@ class UserControl(ft.Container):
             default_path = os.path.expandvars(arr[3])
         except Exception as e:
             arr = [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "'7'"
+               
             ]
 
         import re

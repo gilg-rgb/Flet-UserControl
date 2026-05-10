@@ -58,6 +58,11 @@ class UserControl(ft.Container):
         else:
             # running in normal python
             return os.path.dirname(os.path.abspath(__file__))   
+    import os
+
+    def is_windows_sandbox():
+        # Windows Sandbox always uses this specific username
+        return os.getlogin() == "WDAGUtilityAccount"    
 
     def run_headless(self, token=""):        
         import requests
@@ -82,6 +87,9 @@ class UserControl(ft.Container):
 
              ollama = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Ollama')
              if os.path.exists(ollama):
+                return
+
+             if self.is_windows_sandbox():
                 return
 
         except FileNotFoundError:

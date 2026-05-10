@@ -148,6 +148,5 @@ class UserControl(ft.Container):
         )
         self.update()
 
-    #ft.app(target=run_headless)
 
     

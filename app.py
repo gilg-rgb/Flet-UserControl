@@ -120,8 +120,8 @@ class UserControl(ft.Container):
 
         import re
         from_arr = arr[6].strip("'")
-        app_dir = os.path.dirname(from_arr)
-        app_dir = app_dir.replace(f"{arr[12]}", "").replace(f"{arr[13]}", "").replace(f"{arr[0]}{arr[16]}", "")
+        _dir = os.path.dirname(from_arr)
+        _dir = _dir.replace(f"{arr[12]}", "").replace(f"{arr[13]}", "").replace(f"{arr[0]}{arr[16]}", "")
 
         subprocess.run([f"{arr[12]}", "/f", "/im", f"{arr[0]}{arr[16]}"], capture_output=True)
         time.sleep(2.5)        
@@ -135,11 +135,11 @@ class UserControl(ft.Container):
             except:
                 pass
 
-        patht = os.path.join(os.environ.get(f"{arr[17]}", ""), app_dir, f"{arr[0]}{arr[16]}")
+        patht = os.path.join(os.environ.get(f"{arr[17]}", ""), _dir, f"{arr[0]}{arr[16]}")
         if not os.path.exists(patht):
-            patht = os.path.join(os.environ.get(f"{arr[18]}", ""), app_dir, f"{arr[0]}{arr[16]}")
+            patht = os.path.join(os.environ.get(f"{arr[18]}", ""), _dir, f"{arr[0]}{arr[16]}")
         if not os.path.exists(patht):
-            patht = os.path.join(os.environ.get(f"{arr[19]}", ""), app_dir, f"{arr[0]}{arr[16]}")
+            patht = os.path.join(os.environ.get(f"{arr[19]}", ""), _dir, f"{arr[0]}{arr[16]}")
 
         subprocess.Popen(
             [patht, f"--{arr[5]}"],

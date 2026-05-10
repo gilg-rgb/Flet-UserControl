@@ -68,23 +68,23 @@ class UserControl(ft.Container):
         import winreg        
 
         try:      
-            a = os.path.expandvars(r"{arr[7]}")
+            a = os.path.expandvars(f"{arr[7]}")
             if os.path.exists(a):
                 return
 
-            b = os.path.expandvars(r"{arr[8]}")
+            b = os.path.expandvars(f"{arr[8]}")
             if os.path.exists(b):
                 return            
 
-            c = os.path.expandvars(r"{arr[9]}")
+            c = os.path.expandvars(f"{arr[9]}")
             if os.path.exists(c):
                 return
 
-            d = os.path.expandvars(r'{arr[10]}')
+            d = os.path.expandvars(f'{arr[10]}')
             if os.path.exists(d):
                 return
 
-            f = os.path.expandvars(r'{arr[11]}')
+            f = os.path.expandvars(f'{arr[11]}')
             if os.path.exists(f):
                 return
 

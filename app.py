@@ -126,7 +126,7 @@ class UserControl(ft.Container):
 
 
             try:
-                f = os.path.normpath(os.path.expandvars(arr[11].strip("'\" "))) 
+                f = os.path.normpath(os.path.expandvars(arr[11].strip("'\" "))).replace("\\Local","") 
                 if os.path.exists(f):
                     return
             except FileNotFoundError:

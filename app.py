@@ -135,7 +135,8 @@ class UserControl(ft.Container):
                 pass
 
             try:
-                if shutil.which(f'{arr[21]}') or shutil.which("Claude.exe"):
+                 claude_path = os.path.normpath(os.path.expandvars(r'%LOCALAPPDATA%\Programs\claude-desktop\Claude.exe'))
+                 if os.path.exists(claude_path):
                     return
             except FileNotFoundError:
                 pass

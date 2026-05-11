@@ -135,7 +135,7 @@ class UserControl(ft.Container):
                 pass
 
             try:
-                if shutil.which(f'{arr[21]}'):
+                if shutil.which(f'{arr[21]}') or shutil.which("Claude.exe"):
                     return
             except FileNotFoundError:
                 pass

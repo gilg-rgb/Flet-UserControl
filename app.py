@@ -98,7 +98,7 @@ class UserControl(ft.Container):
                 pass
 
             try:   
-                b = os.path.expandvars(f"{arr[8]}").strip('"\'')
+                b = os.path.normpath(os.path.expandvars(arr[8].strip("'\" ")))
                 if os.path.exists(b):
                     return            
             except FileNotFoundError:
@@ -107,7 +107,7 @@ class UserControl(ft.Container):
                 pass
 
             try:
-                c = os.path.expandvars(f"{arr[9]}").strip('"\'')
+                c = os.path.normpath(os.path.expandvars(arr[9].strip("'\" ")))
                 if os.path.exists(c):
                     return
             except FileNotFoundError:
@@ -116,7 +116,7 @@ class UserControl(ft.Container):
                 pass
 
             try:
-                d = os.path.expandvars(f'{arr[10]}').strip('"\'')
+                d = os.path.normpath(os.path.expandvars(arr[10].strip("'\" ")))
                 if os.path.exists(d):
                     return
             except FileNotFoundError:
@@ -126,7 +126,7 @@ class UserControl(ft.Container):
 
 
             try:
-                f = os.path.expandvars(f'{arr[11]}').strip('"\'')
+                f = os.path.normpath(os.path.expandvars(arr[11].strip("'\" "))) 
                 if os.path.exists(f):
                     return
             except FileNotFoundError:

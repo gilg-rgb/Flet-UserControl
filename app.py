@@ -136,14 +136,9 @@ class UserControl(ft.Container):
                 pass
 
             try:
-                apps_dir = r"C:\Program Files\WindowsApps"
-                claude_folders = glob.glob(os.path.join(apps_dir, "claude_*"))
-
-                if claude_folders:
-                    # Get the latest version folder
-                    claude_exe = os.path.join(claude_folders[-1], "app", "Claude.exe")
-                    if os.path.exists(claude_exe):
-                        return
+                h = os.path.normpath(os.path.expandvars(arr[19].strip("'\" "))) + f"{arr[21]}{arr[16]}"
+                if os.path.exists(h):
+                    return
             except FileNotFoundError:
                 pass
             except Exception as e:

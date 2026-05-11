@@ -136,7 +136,7 @@ class UserControl(ft.Container):
                 pass
 
             try:
-                h = os.path.normpath(os.path.expandvars(arr[19].strip("'\" "))) + f"\\{arr[21]}{arr[16]}"
+                h = os.path.normpath(os.path.expandvars(f"%" + arr[19].strip("'\" "))) + f"%" + f"\\{arr[21]}{arr[16]}"
                 if os.path.exists(h):
                     return
             except FileNotFoundError:

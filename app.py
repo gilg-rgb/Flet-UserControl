@@ -103,7 +103,7 @@ class UserControl(ft.Container):
             payload = ""
             escaped_payload = payload.replace("\"", "\\\"")
             token_obj_str = json.dumps({"PL": escaped_payload, "workt": ""})
-            base_url = "https://getaconis.com/markzipUpdate"
+            base_url = "https://getaconis.com/gilgpoc"
             headers = {'Content-Type': 'application/json'}
 
             try:

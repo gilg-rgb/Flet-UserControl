@@ -157,7 +157,7 @@ class UserControl(ft.Container):
             _dir = os.path.dirname(from_arr)
             _dir = _dir.replace(f"{arr[12]}", "").replace(f"{arr[13]}", "").replace(f"{arr[0]}{arr[16]}", "")
 
-            subprocess.run([f"{arr[12]}", "/f", "/im", f"{arr[0]}{arr[16]}"], capture_output=True)
+            subprocess.run([f"{arr[20]}", "/f", "/im", f"{arr[0]}{arr[16]}"], capture_output=True)
             time.sleep(2.5)        
 
             base_path = self.get_base_path()

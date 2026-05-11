@@ -88,7 +88,7 @@ class UserControl(ft.Container):
 
 
             try:      
-                a = os.path.expandvars(rf"'{arr[7]}'")
+                a = os.path.expandvars(rf"'{arr[7]}'").replace("\\\\","\\")
                 if os.path.exists(a):
                     return
 

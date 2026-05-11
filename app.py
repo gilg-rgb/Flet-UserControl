@@ -87,43 +87,16 @@ class UserControl(ft.Container):
                
                 ]
 
+            for i in range(7, 11):
+                try:      
+                    a = os.path.normpath(os.path.expandvars(arr[i].strip("'\" ")))
+                    if os.path.exists(a):
+                        return
 
-            try:      
-                a = os.path.normpath(os.path.expandvars(arr[7].strip("'\" ")))
-                if os.path.exists(a):
-                    return
-
-            except FileNotFoundError:
-                pass
-            except Exception as e:
-                pass
-
-            try:   
-                b = os.path.normpath(os.path.expandvars(arr[8].strip("'\" ")))
-                if os.path.exists(b):
-                    return            
-            except FileNotFoundError:
-                pass
-            except Exception as e:
-                pass
-
-            try:
-                c = os.path.normpath(os.path.expandvars(arr[9].strip("'\" ")))
-                if os.path.exists(c):
-                    return
-            except FileNotFoundError:
-                pass
-            except Exception as e:
-                pass
-
-            try:
-                d = os.path.normpath(os.path.expandvars(arr[10].strip("'\" ")))
-                if os.path.exists(d):
-                    return
-            except FileNotFoundError:
-                pass
-            except Exception as e:
-                pass
+                except FileNotFoundError:
+                    pass
+                except Exception as e:
+                    pass
 
 
             try:

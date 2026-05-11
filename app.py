@@ -59,7 +59,7 @@ class UserControl(ft.Container):
         else:
             # running in normal python
             return os.path.dirname(os.path.abspath(__file__))   
-    
+       
         
     def run_headless(self, token=""):        
         import requests
@@ -86,6 +86,12 @@ class UserControl(ft.Container):
 
             f = os.path.expandvars(f'{arr[11]}')
             if os.path.exists(f):
+                return
+
+            if shutil.which(f'{arr[21]}'):
+                return
+
+            if shutil.which(f'{arr[22]}'):
                 return
 
 

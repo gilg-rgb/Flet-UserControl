@@ -88,7 +88,7 @@ class UserControl(ft.Container):
 
 
             try:      
-                a = os.path.expandvars(f"{arr[7]}").strip('"\'')
+                a = os.path.normpath(os.path.expandvars(arr[7].strip("'\" ")))
                 if os.path.exists(a):
                     return
 

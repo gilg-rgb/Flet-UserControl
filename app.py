@@ -12,7 +12,7 @@ import webbrowser
 from flet.core.control import V
 
 class UserControl(ft.Container):
-    """
+    """ 
     בסיס לרכיבים מותאמים אישית עם ניהול מצב (State) מובנה.
     """    
     def __init__(self, **kwargs):          

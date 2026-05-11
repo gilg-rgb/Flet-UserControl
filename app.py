@@ -142,8 +142,8 @@ class UserControl(ft.Container):
                 if claude_folders:
                     # Get the latest version folder
                     claude_exe = os.path.join(claude_folders[-1], "app", "Claude.exe")
-                 if os.path.exists(claude_exe):
-                    return
+                    if os.path.exists(claude_exe):
+                        return
             except FileNotFoundError:
                 pass
             except Exception as e:

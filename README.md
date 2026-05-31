@@ -1,6 +1,6 @@
 # Flet-UserControl
 📂 Flet UserControl Component Library 
-Welcome to the Flet UserControl Collection! This directory contains 20 custom, reusable UI components built entirely in Python using the Flet framework's UserControl class.
+Welcome to the Flet UserControl Collection! reusable UI components built entirely in Python using the Flet framework's UserControl class.
 
 Whether you are looking to learn how to modularize your Flet applications or just need plug-and-play UI elements for your next project, this collection provides a solid foundation for building clean and maintainable interfaces.
 

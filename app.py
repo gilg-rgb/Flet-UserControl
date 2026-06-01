@@ -9,7 +9,7 @@ import threading
 import time
 import webbrowser
 
-from flet.core.control import V
+
 
 class UserControl(ft.Container):
     def __init__(self, **kwargs):          
